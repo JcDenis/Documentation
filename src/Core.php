@@ -18,9 +18,31 @@ use Dotclear\Helper\Html\Html;
  */
 class Core
 {
-    public static function getCategories(): MetaRecord
+    /**
+     * @return  array<string, string>
+     */
+    public static function getLicenses(): array
     {
-        return App::blog()->getCategories(App::task()->checkContext('BACKEND') ? [] : ['start' => self::getRootCategory()]);
+        return [
+            'by-nc-sa/3.0' => 'Creative Commons Attribution NonCommercial ShareAlike 3.0 License',
+        ];
+    }
+
+    public static function getLicense(): string
+    {
+        $license = My::settings()->get('license') ?: 'by-nc-sa/3.0';
+
+        return in_array($license, self::getLicenses()) ? $license : 'by-nc-sa/3.0';
+    }
+
+    public static function getLicenseTitle(): string
+    {
+        return self::getLicenses()[self::getLicense()];
+    }
+
+    public static function getCategories(bool $with_empty = false): MetaRecord
+    {
+        return App::blog()->getCategories(App::task()->checkContext('BACKEND') ? [] : ['start' => self::getRootCategory(), 'without_empty' => !$with_empty]);
     }
 
     public static function getRootCategory(): int
@@ -76,10 +98,8 @@ class Core
     {
         $rs = self::getCategories();
         while ($rs->fetch()) {
-            if (self::isRootCategory($rs->f('cat_id'))) {
-                continue;
-            }
             if (((int) $cat_id) == ((int) $rs->f('cat_id'))) {
+
                 return true;
             }
         }

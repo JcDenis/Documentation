@@ -27,10 +27,19 @@ class Frontend extends Process
             return false;
         }
 
+        App::frontend()->template()->addBlocks([
+            'DocumentationIf' => FrontendTemplate::DocumentationIf(...),
+        ]);
+        App::frontend()->template()->addValues([
+            'DocumentationCategoriesList' => FrontendTemplate::DocumentationCategoriesList(...),
+            'DocumentationLicenseBadge'   => FrontendTemplate::DocumentationLicenseBadge(...),
+        ]);
+
         App::behavior()->addBehaviors([
             'publicPostBeforeGetPosts'          => FrontendBehaviors::publicPostBeforeGetPosts(...),
             'publicCategoryBeforeGetCategories' => FrontendBehaviors::publicCategoryBeforeGetCategories(...),
             'templatePrepareParams'             => FrontendBehaviors::templatePrepareParams(...),
+            'publicHeadContent'                 => FrontendBehaviors::publicHeadContent(...),
         ]);
 
         return true;

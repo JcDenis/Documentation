@@ -30,7 +30,7 @@
 </tpl:Block>
 
 <tpl:Block name="body-tag">
-  <body class="dc-category">
+  <body class="dc-category dc-documentation">
 </tpl:Block>
 
 <tpl:Block name="main-content">
@@ -49,37 +49,37 @@
         <tpl:Block name="main-content-header-feed">
         </tpl:Block>
         <tpl:Block name="main-content-header-desc">
-          <div class="content-info__cat-desc">
-            {{tpl:CategoryDescription}}
-          </div>
+          <tpl:CategoryIf has_entries="1">
+            <div class="content-info__cat-desc">
+              {{tpl:CategoryDescription}}
+            </div>
+          </tpl:CategoryIf>
         </tpl:Block>
-        <tpl:Block name="main-content-header-subcats">
-          <tpl:CategoryFirstChildren>
-            <tpl:CategoriesHeader>
-              <div id="subcategories" class="content-info__sub-cat">
-                <h3>{{tpl:lang Subcategories}}</h3>
-                <ul>
-            </tpl:CategoriesHeader>
-            <li class="post-cat"><a href="{{tpl:CategoryURL}}">{{tpl:CategoryTitle encode_html="1"}}</a></li>
-            <tpl:CategoriesFooter>
-              </ul>
-              </div>
-            </tpl:CategoriesFooter>
-          </tpl:CategoryFirstChildren>
-        </tpl:Block>
+        <tpl:Block name="main-content-header-subcats"></tpl:Block>
       </header> <!-- # End #content-info -->
     </tpl:Block>
     <tpl:Block name="main-content-inner"></tpl:Block>
       <div class="content-inner">
+        <tpl:DocumentationIf is_root_cat="1">
+          {{tpl:DocumentationCategoriesList with_empty="1" with_posts="1"}}
+        {{tpl:else}}
+          <tpl:CategoryIf has_entries="0">
+            {{tpl:CategoryDescription}}
+          <tpl:CategoryFirstChildren>
+            <h3 class="post-cat"><a href="{{tpl:CategoryURL}}">{{tpl:CategoryTitle encode_html="1"}}</a></h3>
+            {{tpl:CategoryDescription}}
+          </tpl:CategoryFirstChildren>
+          </tpl:CategoryIf>
         <tpl:Entries>
           <tpl:EntriesHeader>
             <ul>
           </tpl:EntriesHeader>
-          <li><a href="{{tpl:EntryURL}}">{{tpl:EntryTitle encode_html="1"}}</a></li>
+          <li><a href="{{tpl:EntryURL}}">{{tpl:EntryTitle encode_html="1"}}</a> <span class="post_excerpt">{{tpl::EntryExcerpt remove_html="1"}}</span></li>
           <tpl:EntriesFooter>
             </ul>
           </tpl:EntriesFooter>
         </tpl:Entries>
+      </tpl:DocumentationIf>
       </div> <!-- # End #content-inner -->
     </tpl:Block>
   </tpl:Block>

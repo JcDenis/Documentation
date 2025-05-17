@@ -32,7 +32,7 @@
 </tpl:Block>
 
 <tpl:Block name="body-tag">
-  <body class="dc-post">
+  <body class="dc-post dc-documentation">
 </tpl:Block>
 
 <tpl:Block name="page-top">
@@ -84,8 +84,7 @@
       <!-- # --BEHAVIOR-- publicEntryAfterContent -->
       {{tpl:SysBehavior behavior="publicEntryAfterContent"}}
     </tpl:Block>
-    <p id="page-license"><a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/">
-      <img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png" title="This work is licensed under a Creative Commons Attribution NonCommercial ShareAlike 3.0 License"></a></p>
+    {{tpl:DocumentationLicenseBadge}}
     </tpl:Block>
   </article>
 </tpl:Block>
