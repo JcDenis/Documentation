@@ -18,7 +18,7 @@ $this->registerModule(
     'Documentation',
     'Use special templates for documentaion posts and categories',
     'Jean-Christian Paul Denis and Contributors',
-    '',
+    '0.2',
     [
         'requires'    => [
             ['core', '2.34'],
