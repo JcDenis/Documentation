@@ -64,7 +64,7 @@ class FrontendBehaviors
         ) {
             return 
                 "if (". Core::class . "::isDocumentationCategory(App::frontend()->context()->categories->cat_id)){" .
-                "\$params['order'] = 'post_selected DESC, post_dt DESC' . (!empty(\$params['order']) ? ', ' . \$params['order'] : '');" .
+                "\$params['order'] = 'post_selected DESC, post_url ASC' . (!empty(\$params['order']) ? ', ' . \$params['order'] : '');" .
                 "}\n";
         }
 
