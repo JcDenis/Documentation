@@ -98,7 +98,7 @@ class FrontendTemplate
             Html::escapeHTML($rs->cat_title) . '</a>';
 
             if ($with_posts) {
-                $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->f('cat_id')]);
+                $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->f('cat_id'), 'order' => 'post_url ASC']);
                 while ($posts->fetch()) {
                     $res .= '<br />- <a href="' . $posts->getURL() . '">' . Html::escapeHTML($posts->f('post_title')) . '</a>';
                 }
