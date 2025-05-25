@@ -1,3 +1,8 @@
+Documentation 0.4 - 2025.05.25
+==========================================================
+* Fix plugins collision on posts and categories queries
+* Fix queries on posts without categories
+
 Documentation 0.3 - 2025.05.24
 ==========================================================
 * Fix posts order on categories (now based on post url)
