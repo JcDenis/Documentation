@@ -25,10 +25,11 @@ class FrontendBehaviors
      */
     public static function publicPostBeforeGetPosts(ArrayObject $params, ?string $args): void
     {
-        App::frontend()->context()->posts = App::blog()->getPosts($params);
-        if (!App::frontend()->context()->posts->isEmpty()
-            && Core::isDocumentationCategory((int) App::frontend()->context()->posts->f('cat_id'))
+        $posts = App::blog()->getPosts($params);
+        if (!$posts->isEmpty()
+            && Core::isDocumentationCategory((int) $posts->f('cat_id'))
         ) {
+            App::frontend()->context()->posts = $posts;
             self::serveTemplate('post');
             exit;
         }
@@ -41,10 +42,11 @@ class FrontendBehaviors
      */
     public static function publicCategoryBeforeGetCategories(ArrayObject $params, ?string $args): void
     {
-        App::frontend()->context()->categories = App::blog()->getCategories($params);
-        if (!App::frontend()->context()->categories->isEmpty()
-            && Core::isDocumentationCategory((int) App::frontend()->context()->categories->f('cat_id'))
+        $categories = App::blog()->getCategories($params);
+        if (!$categories->isEmpty()
+            && Core::isDocumentationCategory((int) $categories->f('cat_id'))
         ) {
+            App::frontend()->context()->categories = $categories;
             self::serveTemplate('category');
             exit;
         }
