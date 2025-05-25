@@ -27,7 +27,7 @@ class FrontendBehaviors
     {
         App::frontend()->context()->posts = App::blog()->getPosts($params);
         if (!App::frontend()->context()->posts->isEmpty()
-            && Core::isDocumentationCategory(App::frontend()->context()->posts->f('cat_id'))
+            && Core::isDocumentationCategory((int) App::frontend()->context()->posts->f('cat_id'))
         ) {
             self::serveTemplate('post');
             exit;
@@ -43,7 +43,7 @@ class FrontendBehaviors
     {
         App::frontend()->context()->categories = App::blog()->getCategories($params);
         if (!App::frontend()->context()->categories->isEmpty()
-            && Core::isDocumentationCategory(App::frontend()->context()->categories->f('cat_id'))
+            && Core::isDocumentationCategory((int) App::frontend()->context()->categories->f('cat_id'))
         ) {
             self::serveTemplate('category');
             exit;
@@ -63,7 +63,7 @@ class FrontendBehaviors
             && in_array(App::url()->getType(), ['category'])
         ) {
             return 
-                "if (". Core::class . "::isDocumentationCategory(App::frontend()->context()->categories->cat_id)){" .
+                "if (". Core::class . "::isDocumentationCategory((int)App::frontend()->context()->categories->cat_id)){" .
                 "\$params['order'] = 'post_selected DESC, post_url ASC' . (!empty(\$params['order']) ? ', ' . \$params['order'] : '');" .
                 "}\n";
         }
