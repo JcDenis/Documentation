@@ -1,3 +1,8 @@
+Documentation 0.5 - 2025.05.28
+==========================================================
+* Fix collision with plugin rosetta
+* Use post style templates
+
 Documentation 0.4 - 2025.05.25
 ==========================================================
 * Fix plugins collision on posts and categories queries
