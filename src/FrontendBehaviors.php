@@ -25,6 +25,11 @@ class FrontendBehaviors
      */
     public static function publicPostBeforeGetPosts(ArrayObject $params, ?string $args): void
     {
+        // try to bypass plugin rosetta behavior FrontendBehaviors::findTranslatedEntry(),publicPostBeforeGetPosts
+        if (!empty($params['post_type'])) {
+            return;
+        }
+
         $posts = App::blog()->getPosts($params);
         if (!$posts->isEmpty()
             && Core::isDocumentationCategory((int) $posts->f('cat_id'))
