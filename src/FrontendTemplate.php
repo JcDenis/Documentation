@@ -114,7 +114,7 @@ class FrontendTemplate
         return '<div class="documentation-categories">' . $res . '</div>';
     }
 
-    public static function getLicensebadge(): string
+    public static function getLicenseBadge(): string
     {
         return (new Para())
             ->class('documentation-license')
