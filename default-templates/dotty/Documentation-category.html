@@ -36,13 +36,17 @@
         {{tpl:else}}
           <tpl:CategoryIf has_entries="0">
           <tpl:CategoryFirstChildren>
-            <h3><a href="{{tpl:CategoryURL}}">{{tpl:CategoryTitle encode_html="1"}}</a></h3>
-            <span class="post-excerpt">{{tpl:CategoryDescription}}</span>
+            <article class="post">
+              <h2><a href="{{tpl:CategoryURL}}">{{tpl:CategoryTitle encode_html="1"}}</a></h2>
+              <div class="post-content">{{tpl:CategoryDescription}}</div>
+            </article>
           </tpl:CategoryFirstChildren>
           </tpl:CategoryIf>
           <tpl:Entries>
-            <h3><a href="{{tpl:EntryURL}}">{{tpl:EntryTitle encode_html="1"}}</a></h3>
-            <span class="post-excerpt">{{tpl:EntryExcerpt remove_html="1"}}</span>
+            <article class="post">
+              <h2><a href="{{tpl:EntryURL}}">{{tpl:EntryTitle encode_html="1"}}</a></h2>
+              <div class="post-content">{{tpl:EntryExcerpt remove_html="1"}}</div>
+            </article>
           </tpl:Entries>
         </tpl:DocumentationIf>
       </div> <!-- # End #content-inner -->
