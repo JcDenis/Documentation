@@ -36,8 +36,7 @@ class Frontend extends Process
         ]);
 
         App::behavior()->addBehaviors([
-            'publicPostBeforeGetPosts'          => FrontendBehaviors::publicPostBeforeGetPosts(...),
-            'publicCategoryBeforeGetCategories' => FrontendBehaviors::publicCategoryBeforeGetCategories(...),
+            'urlHandlerBeforeGetData'           => FrontendBehaviors::urlHandlerBeforeGetData(...),
             'templatePrepareParams'             => FrontendBehaviors::templatePrepareParams(...),
             'publicHeadContent'                 => FrontendBehaviors::publicHeadContent(...),
         ]);

@@ -18,42 +18,23 @@ use Dotclear\Helper\File\Path;
  */
 class FrontendBehaviors
 {
-    /**
-     * Check if current post is a documenation post and serve documentation template.
-     *
-     * @param   ArrayObject<string, mixed>  $params
-     */
-    public static function publicPostBeforeGetPosts(ArrayObject $params, ?string $args): void
-    {
-        // try to bypass plugin rosetta behavior FrontendBehaviors::findTranslatedEntry(),publicPostBeforeGetPosts
-        if (!empty($params['post_type'])) {
-            return;
-        }
-
-        $posts = App::blog()->getPosts($params);
-        if (!$posts->isEmpty()
-            && Core::isDocumentationCategory((int) $posts->f('cat_id'))
-        ) {
-            App::frontend()->context()->posts = $posts;
-            self::serveTemplate('post');
-            exit;
-        }
-    }
+    private static bool $loop = false;
 
     /**
-     * Check if current category is a documentation category and serve categories template.
-     *
-     * @param   ArrayObject<string, mixed>  $params
+     * Serve custom template if post or category is a documentation.
      */
-    public static function publicCategoryBeforeGetCategories(ArrayObject $params, ?string $args): void
+    public static function urlHandlerBeforeGetData(): void
     {
-        $categories = App::blog()->getCategories($params);
-        if (!$categories->isEmpty()
-            && Core::isDocumentationCategory((int) $categories->f('cat_id'))
-        ) {
-            App::frontend()->context()->categories = $categories;
-            self::serveTemplate('category');
-            exit;
+        if (!self::$loop) {
+            foreach(['posts', 'categories'] as $ctx) {
+                if (App::frontend()->context()->exists($ctx) 
+                    && Core::isDocumentationCategory((int) App::frontend()->context()->__get($ctx)->f('cat_id'))
+                ) {
+                    self::$loop = true;
+                    self::serveTemplate(App::frontend()->context()->current_tpl);
+                    exit();
+                }
+            }
         }
     }
 
@@ -102,6 +83,6 @@ class FrontendBehaviors
             App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $default_template . $tplset);
         }
 
-        Url::serveDocument(My::id() . '-' . $template . '.html');
+        Url::serveDocument(My::id() . '-' . $template);
     }
 }
