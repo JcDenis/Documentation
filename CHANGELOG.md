@@ -1,3 +1,7 @@
+Documentation 0.6 - 2025.06.06
+==========================================================
+* dotty template review
+
 Documentation 0.5 - 2025.05.28
 ==========================================================
 * Fix collision with plugin rosetta
