@@ -59,6 +59,9 @@ class FrontendBehaviors
         return '';
     }
 
+    /**
+     * Add CSS.
+     */
     public static function publicHeadContent(): void
     {
         $tplset = App::themes()->moduleInfo(App::blog()->settings()->get('system')->get('theme'), 'tplset');

@@ -7,7 +7,6 @@
 <tpl:Block name="main-content-header-feed"></tpl:Block>
 <tpl:Block name="main-content-header-subcats"></tpl:Block>
 
-<tpl:Block name="main-content-before"></tpl:Block>
 <tpl:Block name="main-content-main">
   <tpl:Block name="main-content-header">
     <header id="content-info">
@@ -19,8 +18,7 @@
           {{tpl:CategoryTitle encode_html="1"}}
         </h2>
       </tpl:Block>
-      <tpl:Block name="main-content-header-feed">
-      </tpl:Block>
+      <tpl:Block name="main-content-header-feed"></tpl:Block>
       <tpl:Block name="main-content-header-desc">
             {{tpl:CategoryDescription}}
         <tpl:CategoryIf has_entries="1">
@@ -53,3 +51,4 @@
       </tpl:DocumentationIf>
     </div> <!-- # End #content-inner -->
   </tpl:Block>
+</tpl:Block>
