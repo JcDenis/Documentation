@@ -1,3 +1,8 @@
+Documentation 0.7 - 2025.06.26
+==========================================================
+* Add icon
+* Standardize backend blocs
+
 Documentation 0.6 - 2025.06.06
 ==========================================================
 * dotty template review
