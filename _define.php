@@ -18,10 +18,10 @@ $this->registerModule(
     'Documentation',
     'Use special templates for documentation posts and categories',
     'Jean-Christian Paul Denis and Contributors',
-    '0.7',
+    '0.8',
     [
         'requires'    => [
-            ['core', '2.34'],
+            ['core', '2.36'],
         ],
         'settings'    => ['blog' => '#params.' . $this->id . '_params'],
         'permissions' => 'My',
