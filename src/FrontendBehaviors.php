@@ -6,7 +6,6 @@ namespace Dotclear\Plugin\Documentation;
 
 use ArrayObject;
 use Dotclear\App;
-use Dotclear\Core\Frontend\{ Url, Utility };
 use Dotclear\Helper\File\Path;
 
 /**
@@ -78,14 +77,14 @@ class FrontendBehaviors
         // use only dotty tplset
         $tplset = App::themes()->moduleInfo(App::blog()->settings()->get('system')->get('theme'), 'tplset');
         if ($tplset != 'dotty') { //if (!in_array($tplset, ['dotty', 'mustek'])) {
-            Url::p404();
+            App::url()::p404();
         }
 
-        $default_template = Path::real(App::plugins()->moduleInfo(My::id(), 'root')) . DIRECTORY_SEPARATOR . Utility::TPL_ROOT . DIRECTORY_SEPARATOR;
+        $default_template = Path::real(App::plugins()->moduleInfo(My::id(), 'root')) . DIRECTORY_SEPARATOR . App::frontend()::TPL_ROOT . DIRECTORY_SEPARATOR;
         if (is_dir($default_template . $tplset)) {
             App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $default_template . $tplset);
         }
 
-        Url::serveDocument(My::id() . '-' . $template);
+        App::url()::serveDocument(My::id() . '-' . $template);
     }
 }
