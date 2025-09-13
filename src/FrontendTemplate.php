@@ -6,8 +6,13 @@ namespace Dotclear\Plugin\Documentation;
 
 use ArrayObject;
 use Dotclear\App;
-use Dotclear\Core\Frontend\Tpl;
-use Dotclear\Helper\Html\Form\{ Div, Img, Li, Link, None, Para, Ul };
+use Dotclear\Helper\Html\Form\Div;
+use Dotclear\Helper\Html\Form\Img;
+use Dotclear\Helper\Html\Form\Li;
+use Dotclear\Helper\Html\Form\Link;
+use Dotclear\Helper\Html\Form\None;
+use Dotclear\Helper\Html\Form\Para;
+use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Network\Http;
 
@@ -38,7 +43,7 @@ class FrontendTemplate
         $if   = [];
         $sign = fn ($a): string => (bool) $a ? '' : '!';
 
-        $operator = isset($attr['operator']) ? Tpl::getOperator($attr['operator']) : '&&';
+        $operator = isset($attr['operator']) ? App::frontend()->template()->getOperator($attr['operator']) : '&&';
 
         if (isset($attr['has_root_cat'])) {
             $if[] = $sign($attr['has_root_cat']) . '(' . My::class . "::settings()->get('root_cat') != '')";

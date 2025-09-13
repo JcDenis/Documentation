@@ -38,9 +38,9 @@ class Frontend
         ]);
 
         App::behavior()->addBehaviors([
-            'urlHandlerBeforeGetData'           => FrontendBehaviors::urlHandlerBeforeGetData(...),
-            'templatePrepareParams'             => FrontendBehaviors::templatePrepareParams(...),
-            'publicHeadContent'                 => FrontendBehaviors::publicHeadContent(...),
+            'urlHandlerBeforeGetData' => FrontendBehaviors::urlHandlerBeforeGetData(...),
+            'templatePrepareParams'   => FrontendBehaviors::templatePrepareParams(...),
+            'publicHeadContent'       => FrontendBehaviors::publicHeadContent(...),
         ]);
 
         return true;
