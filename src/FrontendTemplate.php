@@ -6,15 +6,10 @@ namespace Dotclear\Plugin\Documentation;
 
 use ArrayObject;
 use Dotclear\App;
-use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Img;
-use Dotclear\Helper\Html\Form\Li;
 use Dotclear\Helper\Html\Form\Link;
-use Dotclear\Helper\Html\Form\None;
 use Dotclear\Helper\Html\Form\Para;
-use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Helper\Html\Html;
-use Dotclear\Helper\Network\Http;
 
 /**
  * @brief       Documentation module template specifics.
@@ -63,7 +58,7 @@ class FrontendTemplate
      */
     public static function DocumentationCategoriesList(ArrayObject $attr): string
     {
-        return self::filter($attr, self::class . '::getCatgoriesList(' .
+        return self::filter($attr, self::class . '::getCategoriesList(' .
             '$with_empty = ' . (empty($attr['with_empty']) ? 'false' : 'true') . ',' .
             '$with_posts = ' . (empty($attr['with_posts']) ? 'false' : 'true') .
             ')');
@@ -77,11 +72,10 @@ class FrontendTemplate
         return self::filter($attr, self::class . '::getLicenseBadge()');
     }
 
-    public static function getCatgoriesList(bool $with_empty, bool $with_posts): string
+    public static function getCategoriesList(bool $with_empty, bool $with_posts): string
     {
         $rs = Core::getCategories($with_empty);
         if ($rs->isEmpty()) {
-
             return '';
         }
 
@@ -90,7 +84,7 @@ class FrontendTemplate
         $ref_level = $level = $rs->level - 1;
         while ($rs->fetch()) {
             if ($rs->level > $level) {
-                $res .= str_repeat('<ul><li>', (int) ($rs->level - $level));
+                $res .= str_repeat('<ul class="arch-list arch-cat-list"><li>', (int) ($rs->level - $level));
             } elseif ($rs->level < $level) {
                 $res .= str_repeat('</li></ul>', (int) -($rs->level - $level));
             }
@@ -104,9 +98,11 @@ class FrontendTemplate
 
             if ($with_posts) {
                 $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->f('cat_id'), 'order' => 'post_url ASC']);
+                $res .= '<ul class="arch-list arch-sub-cat-list">';
                 while ($posts->fetch()) {
-                    $res .= '<br />- <a href="' . $posts->getURL() . '">' . Html::escapeHTML($posts->f('post_title')) . '</a>';
+                    $res .= '<li><a href="' . $posts->getURL() . '">' . Html::escapeHTML($posts->f('post_title')) . '</a></li>';
                 }
+                $res .= '</ul>';
             }
 
             $level = $rs->level;
