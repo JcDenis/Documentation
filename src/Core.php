@@ -24,15 +24,15 @@ class Core
     public static function getLicenses(): array
     {
         return [
-            'by-nc-sa/3.0' => 'Creative Commons Attribution NonCommercial ShareAlike 3.0 License',
+            'by-nc-sa/4.0' => 'Creative Commons Attribution NonCommercial ShareAlike 4.0 License',
         ];
     }
 
     public static function getLicense(): string
     {
-        $license = My::settings()->get('license') ?: 'by-nc-sa/3.0';
+        $license = My::settings()->get('license') ?: 'by-nc-sa/4.0';
 
-        return in_array($license, self::getLicenses()) ? $license : 'by-nc-sa/3.0';
+        return in_array($license, self::getLicenses()) ? $license : 'by-nc-sa/4.0';
     }
 
     public static function getLicenseTitle(): string
