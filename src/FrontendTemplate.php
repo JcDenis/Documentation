@@ -97,7 +97,7 @@ class FrontendTemplate
             Html::escapeHTML($rs->cat_title) . '</a>';
 
             if ($with_posts) {
-                $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->f('cat_id'), 'order' => 'post_url ASC']);
+                $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->f('cat_id')]);
                 $res .= '<ul class="arch-list arch-sub-cat-list">';
                 while ($posts->fetch()) {
                     $res .= '<li><a href="' . $posts->getURL() . '">' . Html::escapeHTML($posts->f('post_title')) . '</a></li>';
