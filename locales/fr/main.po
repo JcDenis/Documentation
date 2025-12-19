@@ -1,0 +1,37 @@
+# Language: Français
+# Module: Documentation - 0.8.7
+# Date: 2025-12-19 16:55:40
+# Translated with translater 2025.09.11
+
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Project-Id-Version: Documentation 0.8.7\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2025-12-19T16:55:40+00:00\n"
+"Last-Translator: Philippe\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/BackendBehaviors.php:33
+msgid "Limit documentation to this category children:"
+msgstr "Limiter la documentation aux enfants de cette catégorie :"
+
+#: src/BackendBehaviors.php:37
+msgid "Leave this empty to disable this feature."
+msgstr "Laisser vide pour désactiver cette fonctionnalité"
+
+#: src/BackendBehaviors.php:45
+msgid "Excluded categories from summary:"
+msgstr "Catégories exclues du sommaire :"
+
+#: src/BackendBehaviors.php:49
+msgid "Comma separated list of categories ids."
+msgstr "Liste des ids des catégories séparés par des virgules"
+
+#: src/Core.php:75
+msgid "Do not use documentation"
+msgstr "Ne pas utiliser Documentation"
+

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\Documentation;
 
 use Dotclear\App;
-use Dotclear\Helper\Html\Form\{ Div, Fieldset, Img, Label, Legend, Note, Para, Select };
+use Dotclear\Helper\Html\Form\{ Div, Fieldset, Img, Input, Label, Legend, Note, Para, Select };
 use Dotclear\Interface\Core\BlogSettingsInterface;
 
 /**
@@ -35,6 +35,18 @@ class BackendBehaviors
                 (new Note())
                     ->class('form-note')
                     ->text(__('Leave this empty to disable this feature.')),
+                (new Para())
+                    ->class('classic')
+                    ->items([
+                        (new Input(My::id() . 'excluded_cats'))    
+                        ->size(30)
+                        ->maxlength(255)
+                        ->value((string) $blog_settings->get(My::id())->get('excluded_cats'))
+                        ->label((new Label(__('Excluded categories from summary:'), Label::OUTSIDE_TEXT_BEFORE))),
+                ]),
+                (new Note())
+                    ->class('form-note')
+                    ->text(__('Comma separated list of categories ids.')),
             ])
             ->render();
     }
@@ -45,5 +57,7 @@ class BackendBehaviors
     public static function adminBeforeBlogSettingsUpdate(BlogSettingsInterface $blog_settings): void
     {
         $blog_settings->get(My::id())->put('root_cat', (int) $_POST[My::id() . 'root_cat'] ?: 0, 'integer');
+        $blog_settings->get(My::id())->put('excluded_cats', (string) $_POST[My::id() . 'excluded_cats'] ?: '', 'string');
+
     }
 }
