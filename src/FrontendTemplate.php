@@ -83,7 +83,7 @@ class FrontendTemplate
 
         $ref_level = $level = $rs->level - 1;
 
-        $excluded = explode(',', App::blog()->settings()->get(My::id())->get('excluded_cats'));
+        $excluded = explode(',', trim(App::blog()->settings()->get(My::id())->get('excluded_cats')));
 
         while ($rs->fetch()) {
             if (!in_array($rs->f('cat_id'), $excluded)) {
