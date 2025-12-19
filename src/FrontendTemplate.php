@@ -84,13 +84,13 @@ class FrontendTemplate
         $ref_level = $level = $rs->level - 1;
         while ($rs->fetch()) {
             if ($rs->level > $level) {
-                $res .= str_repeat('<ul class="arch-list arch-cat-list"><li>', (int) ($rs->level - $level));
+                $res .= str_repeat('<ul class="arch-list arch-cat-list"><li class="cat-' . $rs->f('cat_id') . '">', (int) ($rs->level - $level));
             } elseif ($rs->level < $level) {
                 $res .= str_repeat('</li></ul>', (int) -($rs->level - $level));
             }
 
             if ($rs->level <= $level) {
-                $res .= '</li><li>';
+                $res .= '</li><li class="cat-' . $rs->f('cat_id') . '">';
             }
 
             $res .= '<a href="' . App::blog()->url() . App::url()->getURLFor('category', $rs->cat_url) . '">' .
