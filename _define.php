@@ -18,7 +18,7 @@ $this->registerModule(
     'Documentation',
     'Use special templates for documentation posts and categories',
     'Jean-Christian Paul Denis and Contributors',
-    '0.8.7',
+    '0.9.0',
     [
         'requires'    => [
             ['core', '2.36'],
@@ -29,6 +29,6 @@ $this->registerModule(
         'support'     => 'https://github.com/JcDenis/' . $this->id . '/issues',
         'details'     => 'https://github.com/JcDenis/' . $this->id . '/',
         'repository'  => 'https://raw.githubusercontent.com/JcDenis/' . $this->id . '/master/dcstore.xml',
-        'date'        => '2025-12-19T04:04:08+00:00',
+        'date'        => '2025-12-20T04:13:08+00:00',
     ]
 );
