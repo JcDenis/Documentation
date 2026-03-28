@@ -96,11 +96,13 @@ class Core
 
     public static function isDocumentationCategory(int|string $cat_id): bool
     {
-        $rs = self::getCategories();
-        while ($rs->fetch()) {
-            if (((int) $cat_id) == ((int) $rs->f('cat_id'))) {
+        if (self::hasRootCategory()) {
+            $rs = self::getCategories();
+            while ($rs->fetch()) {
+                if (((int) $cat_id) == ((int) $rs->f('cat_id'))) {
 
-                return true;
+                    return true;
+                }
             }
         }
 

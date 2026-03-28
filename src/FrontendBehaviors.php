@@ -64,7 +64,7 @@ class FrontendBehaviors
     public static function publicHeadContent(): void
     {
         $tplset = App::themes()->moduleInfo(App::blog()->settings()->get('system')->get('theme'), 'tplset');
-        if (in_array($tplset, ['dotty', 'mustek'])) {
+        if (Core::hasRootCategory() && in_array($tplset, ['dotty', 'mustek'])) {
             echo My::cssLoad('frontend-' . $tplset);
         }
     }
