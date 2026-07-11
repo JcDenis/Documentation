@@ -47,7 +47,7 @@ class FrontendBehaviors
     {
         if ($tpl['tag'] == 'Entries' 
             && $tpl['method'] == 'blog::getPosts'
-            && in_array(App::url()->getType(), ['category'])
+            && App::url()->isType('category')
         ) {
             return 
                 "if (". Core::class . "::isDocumentationCategory((int)App::frontend()->context()->categories->cat_id)){" .
