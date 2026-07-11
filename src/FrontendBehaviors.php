@@ -27,7 +27,7 @@ class FrontendBehaviors
         if (!self::$loop) {
             foreach(['posts', 'categories'] as $ctx) {
                 if (App::frontend()->context()->exists($ctx) 
-                    && Core::isDocumentationCategory((int) App::frontend()->context()->__get($ctx)->f('cat_id'))
+                    && Core::isDocumentationCategory((int) App::frontend()->context()->__get($ctx)->intField('cat_id'))
                 ) {
                     self::$loop = true;
                     self::serveTemplate(App::frontend()->context()->current_tpl);

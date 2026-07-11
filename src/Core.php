@@ -52,7 +52,7 @@ class Core
 
     public static function getRootCategoryUrl(): string
     {
-        return self::hasRootCategory() ? App::blog()->url() . App::url()->getURLFor('category', Html::sanitizeURL(App::blog()->getCategories(['cat_id' => self::getRootCategory()])->f('cat_url'))) : '';
+        return self::hasRootCategory() ? App::blog()->url() . App::url()->getURLFor('category', Html::sanitizeURL(App::blog()->getCategories(['cat_id' => self::getRootCategory()])->strField('cat_url'))) : '';
     }
 
     public static function isRootCategory(int|string $id): bool
@@ -78,7 +78,7 @@ class Core
         $level            = self::hasRootCategory() ? 1 : 0;
 
         while ($rs->fetch()) {
-            if (!App::task()->checkContext('BACKEND') && self::isRootCategory($rs->f('cat_id'))) {
+            if (!App::task()->checkContext('BACKEND') && self::isRootCategory($rs->intField('cat_id'))) {
                 continue;
             }
             $option = new Option(
@@ -99,7 +99,7 @@ class Core
         if (self::hasRootCategory()) {
             $rs = self::getCategories();
             while ($rs->fetch()) {
-                if (((int) $cat_id) == ((int) $rs->f('cat_id'))) {
+                if (((int) $cat_id) === $rs->intField('cat_id')) {
 
                     return true;
                 }

@@ -45,7 +45,7 @@ class FrontendTemplate
         }
 
         if (isset($attr['is_root_cat'])) {
-            $if[] = $sign($attr['is_root_cat']) . '(' . My::class . "::settings()->get('root_cat') == (App::frontend()->context()->categories?->f('cat_id') ?? (App::frontend()->context()->posts?->f('cat_id') ?? '-1')))";
+            $if[] = $sign($attr['is_root_cat']) . '(' . My::class . "::settings()->get('root_cat') == (App::frontend()->context()->categories?->intField('cat_id') ?? (App::frontend()->context()->posts?->intField('cat_id') ?? '-1')))";
         }
 
         return $if === [] ?
@@ -86,25 +86,25 @@ class FrontendTemplate
         $excluded = explode(',', trim((string) App::blog()->settings()->get(My::id())->get('excluded_cats')));
 
         while ($rs->fetch()) {
-            if (!in_array($rs->f('cat_id'), $excluded)) {
+            if (!in_array($rs->strField('cat_id'), $excluded)) {
                 if ($rs->level > $level) {
-                    $res .= str_repeat('<ul class="arch-list arch-cat-list"><li class="cat-' . $rs->f('cat_id') . '">', (int) ($rs->level - $level));
+                    $res .= str_repeat('<ul class="arch-list arch-cat-list"><li class="cat-' . $rs->intField('cat_id') . '">', (int) ($rs->level - $level));
                 } elseif ($rs->level < $level) {
                     $res .= str_repeat('</li></ul>', (int) -($rs->level - $level));
                 }
 
                 if ($rs->level <= $level) {
-                    $res .= '</li><li class="cat-' . $rs->f('cat_id') . '">';
+                    $res .= '</li><li class="cat-' . $rs->strField('cat_id') . '">';
                 }
 
                 $res .= '<a href="' . App::blog()->url() . App::url()->getURLFor('category', $rs->cat_url) . '">' .
                 Html::escapeHTML($rs->cat_title) . '</a>';
 
                 if ($with_posts) {
-                    $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->f('cat_id')]);
+                    $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->intField('cat_id')]);
                     $res .= '<ul class="arch-list arch-sub-cat-list">';
                     while ($posts->fetch()) {
-                        $res .= '<li><a href="' . $posts->getURL() . '">' . Html::escapeHTML($posts->f('post_title')) . '</a></li>';
+                        $res .= '<li><a href="' . $posts->getURL() . '">' . Html::escapeHTML($posts->strField('post_title')) . '</a></li>';
                     }
                     $res .= '</ul>';
                 }
