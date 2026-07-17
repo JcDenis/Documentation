@@ -29,7 +29,7 @@ class BackendBehaviors
                     ->items([
                         (new Select(My::id() . 'root_cat'))
                             ->items(Core::getCategoriesCombo())
-                            ->default((string) (int) $blog_settings->get(My::id())->get('root_cat'))
+                            ->default($blog_settings->get(My::id())->getStr('root_cat', false))
                             ->label((new Label(__('Limit documentation to this category children:'), Label::OL_TF))),
                     ]),
                 (new Note())
@@ -41,7 +41,7 @@ class BackendBehaviors
                         (new Input(My::id() . 'excluded_cats'))    
                         ->size(30)
                         ->maxlength(255)
-                        ->value((string) $blog_settings->get(My::id())->get('excluded_cats'))
+                        ->value($blog_settings->get(My::id())->getStr('excluded_cats', false))
                         ->label((new Label(__('Excluded categories from summary:'), Label::OUTSIDE_TEXT_BEFORE))),
                 ]),
                 (new Note())
@@ -56,8 +56,11 @@ class BackendBehaviors
      */
     public static function adminBeforeBlogSettingsUpdate(BlogSettingsInterface $blog_settings): void
     {
-        $blog_settings->get(My::id())->put('root_cat', (int) $_POST[My::id() . 'root_cat'] ?: 0, 'integer');
-        $blog_settings->get(My::id())->put('excluded_cats', (string) $_POST[My::id() . 'excluded_cats'] ?: '', 'string');
+        $root_cat = isset($_POST[My::id() . 'root_cat']) && is_numeric($_POST[My::id() . 'root_cat']) ? $_POST[My::id() . 'root_cat'] : 0;
+        $exc_cats = isset($_POST[My::id() . 'excluded_cats']) && is_string($_POST[My::id() . 'excluded_cats']) ? $_POST[My::id() . 'excluded_cats'] : '';
+
+        $blog_settings->get(My::id())->put('root_cat', $root_cat, 'integer');
+        $blog_settings->get(My::id())->put('excluded_cats', $exc_cats, 'string');
 
     }
 }

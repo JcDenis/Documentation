@@ -30,9 +30,7 @@ class Core
 
     public static function getLicense(): string
     {
-        $license = My::settings()->get('license') ?: 'by-nc-sa/4.0';
-
-        return in_array($license, self::getLicenses()) ? $license : 'by-nc-sa/4.0';
+        return in_array(My::settings()->getStr('license', false), self::getLicenses()) ? My::settings()->getStr('license', false) : 'by-nc-sa/4.0';
     }
 
     public static function getLicenseTitle(): string
@@ -47,7 +45,7 @@ class Core
 
     public static function getRootCategory(): int
     {
-        return (int) (My::settings()->get('root_cat') ?: 0);
+        return My::settings()->getInt('root_cat', false);
     }
 
     public static function getRootCategoryUrl(): string
@@ -82,11 +80,11 @@ class Core
                 continue;
             }
             $option = new Option(
-                str_repeat('&nbsp;', (int) (($rs->level - $level) * 4)) . Html::escapeHTML($rs->cat_title),
-                (string) $rs->cat_id
+                str_repeat('&nbsp;', (int) (($rs->intField('level') - $level) * 4)) . Html::escapeHTML($rs->strField('cat_title')),
+                $rs->strField('cat_id')
             );
-            if ($rs->level - $level) {
-                $option->class('sub-option' . ($rs->level - $level));
+            if ($rs->intField('level') - $level) {
+                $option->class('sub-option' . ($rs->intField('level') - $level));
             }
             $categories_combo[] = $option;
         }

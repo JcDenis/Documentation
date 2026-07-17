@@ -38,14 +38,14 @@ class FrontendTemplate
         $if   = [];
         $sign = fn ($a): string => (bool) $a ? '' : '!';
 
-        $operator = isset($attr['operator']) ? App::frontend()->template()->getOperator($attr['operator']) : '&&';
+        $operator = isset($attr['operator']) && is_string($attr['operator']) ? App::frontend()->template()->getOperator($attr['operator']) : '&&';
 
-        if (isset($attr['has_root_cat'])) {
-            $if[] = $sign($attr['has_root_cat']) . '(' . My::class . "::settings()->get('root_cat') != '')";
+        if (isset($attr['has_root_cat']) && is_string($attr['has_root_cat'])) {
+            $if[] = $sign($attr['has_root_cat']) . '(' . My::class . "::settings()->getInt('root_cat', false) !== 0)";
         }
 
-        if (isset($attr['is_root_cat'])) {
-            $if[] = $sign($attr['is_root_cat']) . '(' . My::class . "::settings()->get('root_cat') == (App::frontend()->context()->categories?->intField('cat_id') ?? (App::frontend()->context()->posts?->intField('cat_id') ?? '-1')))";
+        if (isset($attr['is_root_cat']) && is_string($attr['is_root_cat'])) {
+            $if[] = $sign($attr['is_root_cat']) . '(' . My::class . "::settings()->getInt('root_cat', false) === (App::frontend()->context()->categories?->intField('cat_id') ?? (App::frontend()->context()->posts?->intField('cat_id') ?? '-1')))";
         }
 
         return $if === [] ?
@@ -81,24 +81,24 @@ class FrontendTemplate
 
         $res = '';
 
-        $ref_level = $level = $rs->level - 1;
+        $ref_level = $level = $rs->intField('level') - 1;
 
-        $excluded = explode(',', trim((string) App::blog()->settings()->get(My::id())->get('excluded_cats')));
+        $excluded = explode(',', trim(App::blog()->settings()->get(My::id())->getStr('excluded_cats', false)));
 
         while ($rs->fetch()) {
             if (!in_array($rs->strField('cat_id'), $excluded)) {
-                if ($rs->level > $level) {
-                    $res .= str_repeat('<ul class="arch-list arch-cat-list"><li class="cat-' . $rs->intField('cat_id') . '">', (int) ($rs->level - $level));
-                } elseif ($rs->level < $level) {
-                    $res .= str_repeat('</li></ul>', (int) -($rs->level - $level));
+                if ($rs->intField('level') > $level) {
+                    $res .= str_repeat('<ul class="arch-list arch-cat-list"><li class="cat-' . $rs->intField('cat_id') . '">', ($rs->intField('level') - $level));
+                } elseif ($rs->intField('level') < $level) {
+                    $res .= str_repeat('</li></ul>', -($rs->intField('level') - $level));
                 }
 
-                if ($rs->level <= $level) {
+                if ($rs->intField('level') <= $level) {
                     $res .= '</li><li class="cat-' . $rs->strField('cat_id') . '">';
                 }
 
-                $res .= '<a href="' . App::blog()->url() . App::url()->getURLFor('category', $rs->cat_url) . '">' .
-                Html::escapeHTML($rs->cat_title) . '</a>';
+                $res .= '<a href="' . App::blog()->url() . App::url()->getURLFor('category', $rs->strField('cat_url')) . '">' .
+                Html::escapeHTML($rs->strField('cat_title')) . '</a>';
 
                 if ($with_posts) {
                     $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->intField('cat_id')]);
@@ -109,7 +109,7 @@ class FrontendTemplate
                     $res .= '</ul>';
                 }
 
-                $level = $rs->level;
+                $level = $rs->intField('level');
             }
         }
 

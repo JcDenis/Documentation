@@ -6,6 +6,7 @@ namespace Dotclear\Plugin\Documentation;
 
 use ArrayObject;
 use Dotclear\App;
+use Dotclear\Database\MetaRecord;
 use Dotclear\Helper\File\Path;
 
 /**
@@ -27,10 +28,12 @@ class FrontendBehaviors
         if (!self::$loop) {
             foreach(['posts', 'categories'] as $ctx) {
                 if (App::frontend()->context()->exists($ctx) 
-                    && Core::isDocumentationCategory((int) App::frontend()->context()->__get($ctx)->intField('cat_id'))
+                    && (App::frontend()->context()->__get($ctx) instanceof MetaRecord) 
+                    && Core::isDocumentationCategory(App::frontend()->context()->__get($ctx)->intField('cat_id'))
+                    && is_string(App::frontend()->context()->__get('current_tpl'))
                 ) {
                     self::$loop = true;
-                    self::serveTemplate(App::frontend()->context()->current_tpl);
+                    self::serveTemplate(App::frontend()->context()->__get('current_tpl'));
                     exit();
                 }
             }
@@ -50,7 +53,7 @@ class FrontendBehaviors
             && App::url()->isType('category')
         ) {
             return 
-                "if (". Core::class . "::isDocumentationCategory((int)App::frontend()->context()->categories->cat_id)){" .
+                "if (". Core::class . "::isDocumentationCategory((int)App::frontend()->context()->__get('categories')->intField('cat_id'))){" .
                 "\$params['order'] = 'post_selected DESC' . (!empty(\$params['order']) ? ', ' . \$params['order'] : '');" .
                 "}\n";
         }
@@ -63,8 +66,8 @@ class FrontendBehaviors
      */
     public static function publicHeadContent(): void
     {
-        $tplset = App::themes()->moduleInfo(App::blog()->settings()->get('system')->get('theme'), 'tplset');
-        if (Core::hasRootCategory() && in_array($tplset, ['dotty', 'mustek'])) {
+        $tplset = App::themes()->moduleInfo(App::blog()->settings()->get('system')->getStr('theme', false), 'tplset');
+        if (Core::hasRootCategory() && is_string($tplset) && in_array($tplset, ['dotty', 'mustek'])) {
             echo My::cssLoad('frontend-' . $tplset);
         }
     }
@@ -75,16 +78,19 @@ class FrontendBehaviors
     private static function serveTemplate(string $template): void
     {
         // use only dotty tplset
-        $tplset = App::themes()->moduleInfo(App::blog()->settings()->get('system')->get('theme'), 'tplset');
-        if ($tplset != 'dotty') { //if (!in_array($tplset, ['dotty', 'mustek'])) {
+        $tplset = App::themes()->moduleInfo(App::blog()->settings()->get('system')->getStr('theme', false), 'tplset');
+        if (!is_string($tplset) || $tplset != 'dotty') { //if (!in_array($tplset, ['dotty', 'mustek'])) {
             App::url()::p404();
         }
 
-        $default_template = Path::real(App::plugins()->moduleInfo(My::id(), 'root')) . DIRECTORY_SEPARATOR . App::frontend()::TPL_ROOT . DIRECTORY_SEPARATOR;
-        if (is_dir($default_template . $tplset)) {
-            App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $default_template . $tplset);
-        }
+        $root = App::plugins()->moduleInfo(My::id(), 'root');
+        if (is_string($root)) {
+            $default_template = Path::real($root) . DIRECTORY_SEPARATOR . App::frontend()::TPL_ROOT . DIRECTORY_SEPARATOR;
+            if (is_dir($default_template . $tplset)) {
+                App::frontend()->template()->setPath(App::frontend()->template()->getPath(), $default_template . $tplset);
+            }
 
-        App::url()::serveDocument(My::id() . '-' . $template);
+            App::url()::serveDocument(My::id() . '-' . $template);
+        }
     }
 }

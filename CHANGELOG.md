@@ -1,6 +1,7 @@
-Documentation 0.9 - xxxx.xx.xx
+Documentation 0.x - xxxx.xx.xx
 ==========================================================
 * Bump Dotclear from 2.36 to 2.39
+* Code review (phpstan max)
 
 Documentation 0.8 - 2025.09.09
 ==========================================================
