@@ -29,7 +29,7 @@ class BackendBehaviors
                     ->items([
                         (new Select(My::id() . 'root_cat'))
                             ->items(Core::getCategoriesCombo())
-                            ->default($blog_settings->get(My::id())->getStr('root_cat', false))
+                            ->default($blog_settings->get(My::id())->getInt('root_cat', false))
                             ->label((new Label(__('Limit documentation to this category children:'), Label::OL_TF))),
                     ]),
                 (new Note())

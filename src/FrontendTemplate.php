@@ -101,7 +101,7 @@ class FrontendTemplate
                 Html::escapeHTML($rs->strField('cat_title')) . '</a>';
 
                 if ($with_posts) {
-                    $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->intField('cat_id')]);
+                    $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->strField('cat_id')]);
                     $res .= '<ul class="arch-list arch-sub-cat-list">';
                     while ($posts->fetch()) {
                         $res .= '<li><a href="' . $posts->getURL() . '">' . Html::escapeHTML($posts->strField('post_title')) . '</a></li>';
