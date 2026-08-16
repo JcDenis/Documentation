@@ -53,9 +53,9 @@ class Core
         return self::hasRootCategory() ? App::blog()->url() . App::url()->getURLFor('category', Html::sanitizeURL(App::blog()->getCategories(['cat_id' => self::getRootCategory()])->strField('cat_url'))) : '';
     }
 
-    public static function isRootCategory(int|string $id): bool
+    public static function isRootCategory(int $id): bool
     {
-        return self::getRootCategory() === (int) $id;
+        return self::getRootCategory() === $id;
     }
 
     public static function hasRootCategory(): bool
@@ -80,8 +80,8 @@ class Core
                 continue;
             }
             $option = new Option(
-                str_repeat('&nbsp;', (int) (($rs->intField('level') - $level) * 4)) . Html::escapeHTML($rs->strField('cat_title')),
-                $rs->strField('cat_id')
+                str_repeat('&nbsp;', (($rs->intField('level') - $level) * 4)) . Html::escapeHTML($rs->strField('cat_title')),
+                (string) $rs->intField('cat_id')
             );
             if ($rs->intField('level') - $level) {
                 $option->class('sub-option' . ($rs->intField('level') - $level));
