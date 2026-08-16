@@ -86,7 +86,7 @@ class FrontendTemplate
         $excluded = explode(',', trim(App::blog()->settings()->get(My::id())->getStr('excluded_cats', false)));
 
         while ($rs->fetch()) {
-            if (!in_array($rs->strField('cat_id'), $excluded)) {
+            if (!in_array((string) $rs->intField('cat_id'), $excluded)) {
                 if ($rs->intField('level') > $level) {
                     $res .= str_repeat('<ul class="arch-list arch-cat-list"><li class="cat-' . $rs->intField('cat_id') . '">', ($rs->intField('level') - $level));
                 } elseif ($rs->intField('level') < $level) {
@@ -94,14 +94,14 @@ class FrontendTemplate
                 }
 
                 if ($rs->intField('level') <= $level) {
-                    $res .= '</li><li class="cat-' . $rs->strField('cat_id') . '">';
+                    $res .= '</li><li class="cat-' . $rs->intField('cat_id') . '">';
                 }
 
                 $res .= '<a href="' . App::blog()->url() . App::url()->getURLFor('category', $rs->strField('cat_url')) . '">' .
                 Html::escapeHTML($rs->strField('cat_title')) . '</a>';
 
                 if ($with_posts) {
-                    $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->strField('cat_id')]);
+                    $posts = App::blog()->getPosts(['no_content' => true, 'cat_id' => $rs->intField('cat_id')]);
                     $res .= '<ul class="arch-list arch-sub-cat-list">';
                     while ($posts->fetch()) {
                         $res .= '<li><a href="' . $posts->getURL() . '">' . Html::escapeHTML($posts->strField('post_title')) . '</a></li>';

@@ -92,12 +92,12 @@ class Core
         return $categories_combo;
     }
 
-    public static function isDocumentationCategory(int|string $cat_id): bool
+    public static function isDocumentationCategory(int $cat_id): bool
     {
         if (self::hasRootCategory()) {
             $rs = self::getCategories();
             while ($rs->fetch()) {
-                if (((int) $cat_id) === $rs->intField('cat_id')) {
+                if ($cat_id === $rs->intField('cat_id')) {
 
                     return true;
                 }

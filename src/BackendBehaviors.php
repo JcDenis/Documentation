@@ -56,7 +56,7 @@ class BackendBehaviors
      */
     public static function adminBeforeBlogSettingsUpdate(BlogSettingsInterface $blog_settings): void
     {
-        $root_cat = isset($_POST[My::id() . 'root_cat']) && is_numeric($_POST[My::id() . 'root_cat']) ? $_POST[My::id() . 'root_cat'] : 0;
+        $root_cat = isset($_POST[My::id() . 'root_cat']) && is_numeric($_POST[My::id() . 'root_cat']) ? (int) $_POST[My::id() . 'root_cat'] : 0;
         $exc_cats = isset($_POST[My::id() . 'excluded_cats']) && is_string($_POST[My::id() . 'excluded_cats']) ? $_POST[My::id() . 'excluded_cats'] : '';
 
         $blog_settings->get(My::id())->put('root_cat', $root_cat, 'integer');
