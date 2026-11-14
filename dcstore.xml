@@ -8,7 +8,7 @@
     <desc>Use special templates for documentaion posts and categories</desc>
     <file>https://github.com/JcDenis/Documentation/releases/download/v0.10.5/plugin-Documentation.zip</file>
     <da:dcmin>2.39</da:dcmin>
-    <da:details>https://github.com/JcDenis/Documentation/src/branch/master/README.md</da:details>
+    <da:details>https://github.com/JcDenis/Documentation/blob/master/README.md</da:details>
     <da:support>https://github.com/JcDenis/Documentation/issues</da:support>
   </module>
 </modules>
