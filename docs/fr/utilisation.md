@@ -17,7 +17,7 @@ Ce plugin n'a pas de page d'administration : tout se règle dans les paramètres
 
 ## Ce qu'il faut avant de commencer
 
-Le thème du blog doit utiliser le jeu de modèles `dotty` (c'est le cas du thème Berlin). Avec un autre jeu de modèles, les pages de documentation affichent une erreur « Document non trouvé ».
+Le plugin fonctionne avec tous les thèmes : ses pages utilisent toujours ses propres gabarits et sa feuille de style.
 
 ## Préparer les catégories
 
@@ -27,11 +27,12 @@ Donnez une description à chaque catégorie : elle est affichée en haut des pag
 
 ## Régler le plugin
 
-Allez dans **Blog > Paramètres du blog**, puis ouvrez la section **Paramètres des plugins pour ce blog**. Le bloc **Documentation** propose deux réglages :
+Allez dans **Blog > Paramètres du blog**, puis ouvrez la section **Paramètres des plugins pour ce blog**. Le bloc **Documentation** propose trois réglages :
 
 ![Les réglages de Documentation](img/reglages-blog.png)
 
 * **Limiter la documentation aux enfants de cette catégorie** : choisissez la catégorie racine, ici **Documentation**. Laissez **Ne pas utiliser Documentation** pour désactiver le plugin.
+* **Licence de la documentation** : la licence Creative Commons affichée en bas des billets, par défaut BY-NC-SA 4.0. Six licences sont proposées.
 * **Catégories exclues du sommaire** : voir [plus bas](#exclure-des-catégories-du-sommaire).
 
 Enregistrez les paramètres du blog.
@@ -62,7 +63,7 @@ Un billet de documentation est présenté sans navigation « billet précédent 
 
 ## Exclure des catégories du sommaire
 
-Dans **Catégories exclues du sommaire**, écrivez les numéros (ids) des catégories à cacher, séparés par des virgules, par exemple `6` ou `6,7`. Le numéro d'une catégorie se voit dans l'adresse de son édition, dans l'administration.
+Dans **Catégories exclues du sommaire**, écrivez les numéros (ids) des catégories à cacher, séparés par des virgules, par exemple `6` ou `6,7`. Le numéro d'une catégorie se voit dans l'adresse de son édition, dans l'administration. Seuls les numéros sont gardés à l'enregistrement : le reste est ignoré.
 
 ![Le sommaire sans la catégorie exclue](img/sommaire-exclusion.png)
 
@@ -82,9 +83,5 @@ Si vous écrivez vos propres modèles, le plugin ajoute :
 
 ## Bon à savoir
 
-* **Seul le jeu de modèles `dotty` est géré.** Avec `mustek`, la feuille de style est chargée mais les pages de documentation renvoient une erreur 404, comme avec les autres jeux de modèles.
-* **Le badge de licence n'apparaît pas** sur les billets : le modèle du plugin l'accroche à un emplacement que le modèle `dotty` actuel n'utilise plus pour afficher un billet. Le badge n'a donc aucun effet visible, de même que les règles de style qui le concernent.
-* **Une seule licence** est prévue (Creative Commons BY-NC-SA 4.0) et aucun réglage ne permet de la changer.
-* **Les catégories exclues** se saisissent par numéro, sans aucune vérification.
-* **Le texte d'aide** de la catégorie dans les réglages (« Laisser vide pour désactiver cette fonctionnalité ») est trompeur : il faut choisir **Ne pas utiliser Documentation** pour désactiver.
-* **Fautes** : « documentaion » dans la description du plugin et dans le README.
+* **Le badge de licence** s'affiche en bas de chaque billet de documentation, avec un lien vers la licence choisie sur le site de Creative Commons.
+* **Les libellés des licences** sont en anglais dans la liste des réglages.
