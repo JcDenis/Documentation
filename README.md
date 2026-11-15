@@ -12,6 +12,8 @@ _Documentation_ is a plugin for the open-source web publishing software called [
 
 > Use special templates for documentation posts and categories
 
+A [user guide in French](https://github.com/JcDenis/Documentation/blob/master/docs/fr/utilisation.md) is available.
+
 ## REQUIREMENTS
 
 * Dotclear 2.39
@@ -29,6 +31,7 @@ Select a root category and then all subcategories and thier posts will be served
 
 ## LINKS
 
+* [User guide (in French)](https://github.com/JcDenis/Documentation/blob/master/docs/fr/utilisation.md)
 * [License](https://github.com/JcDenis/Documentation/blob/master/LICENSE)
 * [Packages & details](https://github.com/JcDenis/Documentation/releases) (or on [Repository](https://dotclear.org/plugin/detail/Documentation))
 * [Sources & contributions](https://github.com/JcDenis/Documentation)
