@@ -37,5 +37,6 @@ Select a root category and then all subcategories and thier posts will be served
 ## CONTRIBUTORS
 
 * Jean-Christian Denis (author)
+* Claude (AI assistant by Anthropic)
 
 You are welcome to contribute to this code.
