@@ -7,7 +7,7 @@
  *
  * @defgroup    Documentation Plugin Documentation.
  *
- * Use special templates for documentaion posts and categories.
+ * Use special templates for documentation posts and categories.
  *
  * @author      Jean-Christian Paul Denis
  * @copyright   AGPL-3.0

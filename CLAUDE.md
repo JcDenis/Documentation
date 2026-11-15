@@ -9,7 +9,7 @@ The rules below take precedence for this module.
 
 ## Module
 
-Use special templates for documentaion posts and categories.
+Use special templates for documentation posts and categories.
 
 No admin page. Public side: behaviors.
 

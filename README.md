@@ -10,7 +10,7 @@
 
 _Documentation_ is a plugin for the open-source web publishing software called [Dotclear](https://www.dotclear.org).
 
-> Use special templates for documentaion posts and categories
+> Use special templates for documentation posts and categories
 
 ## REQUIREMENTS
 
