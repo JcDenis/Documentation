@@ -20,8 +20,8 @@ msgid "Limit documentation to this category children:"
 msgstr "Limiter la documentation aux enfants de cette catégorie :"
 
 #: src/BackendBehaviors.php:37
-msgid "Leave this empty to disable this feature."
-msgstr "Laisser vide pour désactiver cette fonctionnalité"
+msgid "Choose \"Do not use documentation\" to disable this feature."
+msgstr "Choisir « Ne pas utiliser Documentation » pour désactiver cette fonctionnalité."
 
 #: src/BackendBehaviors.php:45
 msgid "Excluded categories from summary:"
@@ -35,3 +35,5 @@ msgstr "Liste des ids des catégories séparés par des virgules"
 msgid "Do not use documentation"
 msgstr "Ne pas utiliser Documentation"
 
+msgid "License of documentation:"
+msgstr "Licence de la documentation :"

@@ -34,7 +34,14 @@ class BackendBehaviors
                     ]),
                 (new Note())
                     ->class('form-note')
-                    ->text(__('Leave this empty to disable this feature.')),
+                    ->text(__('Choose "Do not use documentation" to disable this feature.')),
+                (new Para())
+                    ->items([
+                        (new Select(My::id() . 'license'))
+                            ->items(array_flip(Core::getLicenses()))
+                            ->default(Core::getLicense())
+                            ->label((new Label(__('License of documentation:'), Label::OL_TF))),
+                    ]),
                 (new Para())
                     ->class('classic')
                     ->items([
@@ -58,9 +65,19 @@ class BackendBehaviors
     {
         $root_cat = isset($_POST[My::id() . 'root_cat']) && is_numeric($_POST[My::id() . 'root_cat']) ? (int) $_POST[My::id() . 'root_cat'] : 0;
         $exc_cats = isset($_POST[My::id() . 'excluded_cats']) && is_string($_POST[My::id() . 'excluded_cats']) ? $_POST[My::id() . 'excluded_cats'] : '';
+        $license  = isset($_POST[My::id() . 'license']) && is_string($_POST[My::id() . 'license']) && array_key_exists($_POST[My::id() . 'license'], Core::getLicenses()) ? $_POST[My::id() . 'license'] : 'by-nc-sa/4.0';
+
+        // Only categories IDs
+        $ids = [];
+        foreach (explode(',', $exc_cats) as $id) {
+            if (is_numeric(trim($id)) && (int) trim($id) > 0) {
+                $ids[] = (int) trim($id);
+            }
+        }
+        $exc_cats = implode(',', array_unique($ids));
 
         $blog_settings->get(My::id())->put('root_cat', $root_cat, 'integer');
         $blog_settings->get(My::id())->put('excluded_cats', $exc_cats, 'string');
-
+        $blog_settings->get(My::id())->put('license', $license, 'string');
     }
 }

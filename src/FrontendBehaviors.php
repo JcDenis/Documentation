@@ -66,9 +66,9 @@ class FrontendBehaviors
      */
     public static function publicHeadContent(): void
     {
-        $tplset = App::themes()->moduleInfo(App::blog()->settings()->get('system')->getStr('theme', false), 'tplset');
-        if (Core::hasRootCategory() && is_string($tplset) && in_array($tplset, ['dotty', 'mustek'])) {
-            echo My::cssLoad('frontend-' . $tplset);
+        // Only one style sheet, for all themes
+        if (Core::hasRootCategory()) {
+            echo My::cssLoad('frontend-dotty');
         }
     }
 
@@ -78,10 +78,8 @@ class FrontendBehaviors
     private static function serveTemplate(string $template): void
     {
         // use only dotty tplset
-        $tplset = App::themes()->moduleInfo(App::blog()->settings()->get('system')->getStr('theme', false), 'tplset');
-        if (!is_string($tplset) || $tplset != 'dotty') { //if (!in_array($tplset, ['dotty', 'mustek'])) {
-            App::url()::p404();
-        }
+        // Templates exist only for dotty, they are used with all themes
+        $tplset = 'dotty';
 
         $root = App::plugins()->moduleInfo(My::id(), 'root');
         if (is_string($root)) {

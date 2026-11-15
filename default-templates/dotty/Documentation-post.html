@@ -23,9 +23,8 @@
 
 <tpl:Block name="_entry-content-header-info"></tpl:Block>
 
-<tpl:Block name="_entry-content-behavior-after-content">
-  <!-- # --BEHAVIOR-- publicEntryAfterContent -->
-  {{tpl:SysBehavior behavior="publicEntryAfterContent"}}
+<tpl:Block name="post-content">
+  {{tpl:parent}}
   {{tpl:DocumentationLicenseBadge}}
 </tpl:Block>
 

@@ -83,7 +83,7 @@ class FrontendTemplate
 
         $ref_level = $level = $rs->intField('level') - 1;
 
-        $excluded = explode(',', trim(App::blog()->settings()->get(My::id())->getStr('excluded_cats', false)));
+        $excluded = array_map('trim', explode(',', App::blog()->settings()->get(My::id())->getStr('excluded_cats', false)));
 
         while ($rs->fetch()) {
             if (!in_array((string) $rs->intField('cat_id'), $excluded)) {
@@ -126,9 +126,9 @@ class FrontendTemplate
             ->class('documentation-license')
             ->items([
                 (new Link())
-                    ->href(sprintf('http://creativecommons.org/licenses/%s/', Core::getLicense()))
+                    ->href(sprintf('https://creativecommons.org/licenses/%s/', Core::getLicense()))
                     ->items([
-                        (new Img(sprintf('http://i.creativecommons.org/l/%s/80x15.png', Core::getLicense())))
+                        (new Img(sprintf('https://i.creativecommons.org/l/%s/80x15.png', Core::getLicense())))
                             ->title(sprintf('This work is licensed under a %s', Core::getLicenseTitle()))
                             ->alt(Core::getLicenseTitle()),
                     ]),

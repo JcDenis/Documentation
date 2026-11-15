@@ -1,10 +1,10 @@
 .dc-documentation li .post-excerpt {
     display: block;
 }
-.dc-documentation .post-license {
+.documentation-license {
     text-align: center;
 }
-.dc-documentation .post-license a {
+.documentation-license a {
     text-decoration: none;
     border: none;
 }

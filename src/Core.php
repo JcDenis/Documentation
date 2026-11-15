@@ -24,13 +24,20 @@ class Core
     public static function getLicenses(): array
     {
         return [
+            'by/4.0'       => 'Creative Commons Attribution 4.0 License',
+            'by-sa/4.0'    => 'Creative Commons Attribution ShareAlike 4.0 License',
+            'by-nd/4.0'    => 'Creative Commons Attribution NoDerivatives 4.0 License',
+            'by-nc/4.0'    => 'Creative Commons Attribution NonCommercial 4.0 License',
             'by-nc-sa/4.0' => 'Creative Commons Attribution NonCommercial ShareAlike 4.0 License',
+            'by-nc-nd/4.0' => 'Creative Commons Attribution NonCommercial NoDerivatives 4.0 License',
         ];
     }
 
     public static function getLicense(): string
     {
-        return in_array(My::settings()->getStr('license', false), self::getLicenses()) ? My::settings()->getStr('license', false) : 'by-nc-sa/4.0';
+        $license = My::settings()->getStr('license', false);
+
+        return array_key_exists($license, self::getLicenses()) ? $license : 'by-nc-sa/4.0';
     }
 
     public static function getLicenseTitle(): string
