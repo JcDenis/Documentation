@@ -1,3 +1,8 @@
+Documentation 0.11 - 2026.11.15
+===========================================================
+* [fix] License badge shown and choice of license, https links, categories IDs checked, templates for all themes
+* [docs] Add a user guide in French, with screenshots
+
 Documentation 0.10 - 2026.08.12
 ==========================================================
 * Bump Dotclear from 2.36 to 2.39
